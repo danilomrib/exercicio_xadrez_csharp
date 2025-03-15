@@ -19,10 +19,12 @@ namespace xadrez_console
                     {
 
                         Console.Clear();
-                        Tela.imprimirTabuleiro(partida.tab);
+
+                        Tela.imprimirPartida(partida); // Aula 227: tratamento da tela para inclusão da coleção das peças.
+                      /*  Tela.imprimirTabuleiro(partida.tab);
                         Console.WriteLine();
                         Console.WriteLine("Turno: " + partida.turno);
-                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);*/
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
