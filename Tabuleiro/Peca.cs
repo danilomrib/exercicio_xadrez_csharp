@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace xadrez_console.tabuleiro
+﻿namespace xadrez_console.tabuleiro
 {
     abstract class Peca
     {
@@ -24,6 +18,25 @@ namespace xadrez_console.tabuleiro
         public void incrementarQtdMovimentos()
         {
             QtdMovimentos++;
+        }
+
+        public bool existeMovimentosPossiveis() // Aula 224, validando os movimentos possiveis
+        {
+            bool[,] mat = movimentosPossiveis(); // criação da matriz temporária
+            for (int i = 0; i < Tab.linhas; i++)
+            {
+                for (int j = 0; j < Tab.colunas; j++)
+                {
+                    if (mat[i, j]) // se aquela matriz for válida, irá permitir o movimento.
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public bool podeMoverPara (Posicao pos) // Método que permite a avaliação da movimentação do destino
+        {
+            return movimentosPossiveis()[pos.Linha, pos.Coluna]; // retorna a ação de movimentação.
         }
 
         public abstract bool[,] movimentosPossiveis();
