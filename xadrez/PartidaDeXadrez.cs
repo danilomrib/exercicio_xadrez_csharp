@@ -10,6 +10,7 @@ namespace xadrez_console.xadrez
         public bool terminada { get; private set; }
         private HashSet<Peca> pecas; //Aula 226: Inclusão da coleção
         private HashSet<Peca> capturadas; //Aula 226: Inclusão da coleção
+        public  bool  xeque { get; private set; }
 
         public PartidaDeXadrez()
         {
@@ -22,7 +23,7 @@ namespace xadrez_console.xadrez
             ColocarPecas();
         }
 
-        public void executaMovimento(Posicao origem, Posicao destino)
+        public Peca executaMovimento(Posicao origem, Posicao destino)
         {
             Peca p = tab.retirarPeca(origem);
             p.incrementarQtdMovimentos();
@@ -32,11 +33,44 @@ namespace xadrez_console.xadrez
             {
                 capturadas.Add(pecaCapturada);
             }
+
+            return pecaCapturada;
+        }
+
+        public void desfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada) //Aula 228: Método que desfaz a ação da jogada
+        {
+            Peca p = tab.retirarPeca(destino); // define a peça do destino a ser devolvida
+            p.decrementarQtdMovimentos(); // retira o movimento
+            if (pecaCapturada != null)
+            {
+                tab.colocarPeca(pecaCapturada, destino); // retorna a peça ao tabuleiro
+                capturadas.Remove(pecaCapturada); // retorna a peça da lista de capturados
+            }
+
+            tab.colocarPeca(p, origem); // retorna a peça de origem a sua posição.
+
         }
 
         public void realizaJogada(Posicao origem, Posicao destino) // Método da aula 223, para realizar a mudança correta do jogador, conforme os turnos.
         {
-            executaMovimento(origem, destino);
+            Peca pecaCapturada = executaMovimento(origem, destino);
+
+            if (estaEmXeque(jogadorAtual)) // Aula 228: função includa para validar se está em xeque
+            {
+                desfazMovimento(origem, destino, pecaCapturada);
+                throw new TabuleiroException("Você não pode se colocar em xeque!");
+            }
+
+            if (estaEmXeque(adversaria(jogadorAtual))) // Aula 228: Valida se quem está xeque é o adversario
+            {
+                xeque = true;
+            }
+            else
+            {
+                xeque = false;
+            }
+
+
             turno++;
             mudaJogador();
         }
@@ -108,10 +142,54 @@ namespace xadrez_console.xadrez
             return aux;
         }
 
+        public bool estaEmXeque (Cor cor) // Método que avalia se o rei está em xeque
+        {
+            Peca R = rei(cor); // define que a regra vale apenas para o rei
+
+            if (R == null) // condição que cobre a obrigatoriedade de ter um rei no tabuleiro no inicio da partida
+            {
+                throw new TabuleiroException("Não tem rei da cor" + cor + "no tabuleiro!");
+            }
+
+            foreach (Peca x in pecasEmJogo(adversaria(cor))) //Progura todos os movimentos de cada peça em comparação ao rei
+            {
+                bool[,] mat = x.movimentosPossiveis();
+                if (mat[R.Posicao.Linha, R.Posicao.Coluna]){
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void colocarNovaPeca(char coluna, int linha, Peca peca) //Aula 226: inclusão de método novo para inclusão de peças
         {
             tab.colocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
             pecas.Add(peca); //função que inclui as peças na coleção.
+        }
+
+        private Cor adversaria(Cor cor)
+        {
+            if (cor == Cor.Branca)
+            {
+                return Cor.Preta;
+            }
+            else
+            {
+                return Cor.Branca;
+            }
+        }
+
+        private Peca rei(Cor cor)
+        {
+            foreach (Peca x in pecasEmJogo(cor))
+            {
+                if (x is Rei)
+                {
+                    return x;
+                }
+            }
+            return null;
         }
 
         private void ColocarPecas()

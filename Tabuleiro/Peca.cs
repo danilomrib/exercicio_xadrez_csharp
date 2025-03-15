@@ -20,6 +20,13 @@
             QtdMovimentos++;
         }
 
+
+        public void decrementarQtdMovimentos()
+        {
+            QtdMovimentos--;
+        }
+
+
         public bool existeMovimentosPossiveis() // Aula 224, validando os movimentos possiveis
         {
             bool[,] mat = movimentosPossiveis(); // criação da matriz temporária
