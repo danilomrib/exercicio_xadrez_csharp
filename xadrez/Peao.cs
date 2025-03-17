@@ -6,20 +6,13 @@ namespace xadrez_console.xadrez
 {
     internal class Peao : Peca
     {
-        public Peao(Cor cor, Tabuleiro tab) : base(cor, tab)
+        public Peao(Tabuleiro tab, Cor cor) : base(tab, cor)
         {
         }
 
         public override string ToString()
         {
             return "P";
-        }
-
-
-        private bool podeMover(Posicao pos)
-        {
-            Peca p = Tab.peca(pos);
-            return p == null || p.Cor != Cor;
         }
 
         private bool existeInimigo (Posicao pos)

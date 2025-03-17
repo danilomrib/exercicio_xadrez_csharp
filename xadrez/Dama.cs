@@ -5,7 +5,7 @@ namespace xadrez_console.xadrez
 {
     internal class Dama : Peca
     {
-        public Dama(Cor cor, Tabuleiro tab) : base(cor, tab)
+        public Dama(Tabuleiro tab, Cor cor) : base(tab, cor)
         {
         }
 

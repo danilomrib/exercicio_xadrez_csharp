@@ -5,7 +5,7 @@ namespace xadrez_console.xadrez
 {
     internal class Cavalo : Peca
     {
-        public Cavalo(Cor cor, Tabuleiro tab) : base(cor, tab)
+        public Cavalo(Tabuleiro tab, Cor cor) : base(tab, cor)
         {
         }
 
