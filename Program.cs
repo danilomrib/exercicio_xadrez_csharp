@@ -29,11 +29,9 @@ namespace xadrez_console
                         bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis(); // vai guardar nesta matriz a lista de movimentos possíveis para a peça
 
                         Console.WriteLine();
-                        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis); // vai imprimir na tela um diferencial com os movimentos possiveis para a peça
-
-
                         Console.Clear();
-                        Tela.imprimirPartida(partida);
+                        Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis); // vai imprimir na tela um diferencial com os movimentos possiveis para a peça
+                                               
                         Console.WriteLine();
                         Console.Write("Destino: ");
                         Posicao destino = Tela.lerPosicaoXadrez().toPosicao();

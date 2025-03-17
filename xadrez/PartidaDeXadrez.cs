@@ -235,12 +235,41 @@ namespace xadrez_console.xadrez
         private void ColocarPecas()
         {
             colocarNovaPeca('A', 1, new Torre(Cor.Branca, tab)); //Nova peça sendo incluida.
-            colocarNovaPeca('H', 1, new Torre(Cor.Branca, tab));
+            colocarNovaPeca('B', 1, new Cavalo(Cor.Branca, tab));
+            colocarNovaPeca('C', 1, new Bispo(Cor.Branca, tab));
             colocarNovaPeca('D', 1, new Rei(Cor.Branca, tab));
+            colocarNovaPeca('E', 1, new Dama(Cor.Branca, tab));
+            colocarNovaPeca('F', 1, new Bispo(Cor.Branca, tab));
+            colocarNovaPeca('G', 1, new Cavalo(Cor.Branca, tab));
+            colocarNovaPeca('H', 1, new Torre(Cor.Branca, tab));
+            colocarNovaPeca('A', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('B', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('C', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('D', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('E', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('F', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('G', 2, new Peao(Cor.Branca, tab));
+            colocarNovaPeca('H', 2, new Peao(Cor.Branca, tab));
+
+
 
             colocarNovaPeca('A', 8, new Torre(Cor.Preta, tab));
-            colocarNovaPeca('H', 8, new Torre(Cor.Preta, tab));
+            colocarNovaPeca('B', 8, new Cavalo(Cor.Preta, tab));
+            colocarNovaPeca('C', 8, new Bispo(Cor.Preta, tab));
             colocarNovaPeca('D', 8, new Rei(Cor.Preta, tab));
+            colocarNovaPeca('E', 8, new Dama(Cor.Preta, tab));
+            colocarNovaPeca('F', 8, new Bispo(Cor.Preta, tab));
+            colocarNovaPeca('G', 8, new Cavalo(Cor.Preta, tab));
+            colocarNovaPeca('H', 8, new Torre(Cor.Preta, tab));
+            colocarNovaPeca('A', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('B', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('C', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('D', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('E', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('F', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('G', 7, new Peao(Cor.Preta, tab));
+            colocarNovaPeca('H', 7, new Peao(Cor.Preta, tab));
+
         }
 
     }
