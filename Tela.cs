@@ -27,7 +27,7 @@ namespace xadrez_console
                 Console.WriteLine();
                 Console.WriteLine("XEQUE MATE!");
                 Console.WriteLine();
-                Console.WriteLine("Partida ganha pelo jogador das peças " + partida.jogadorAtual + "! PARABÉNS!");
+                Console.WriteLine("Partida ganha pelo jogador da peça " + partida.jogadorAtual + "! PARABÉNS!");
             }
         }
 

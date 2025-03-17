@@ -41,7 +41,7 @@
             return false;
         }
 
-        public bool podeMoverPara (Posicao pos) // Método que permite a avaliação da movimentação do destino
+        public bool movimentoPossivel (Posicao pos) // Método que permite a avaliação da movimentação do destino
         {
             return movimentosPossiveis()[pos.Linha, pos.Coluna]; // retorna a ação de movimentação.
         }
