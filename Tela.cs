@@ -14,10 +14,20 @@ namespace xadrez_console
             Console.WriteLine();
             imprimirPecasCapturadas(partida); // impressão das peças capturadas
             Console.WriteLine("Turno: " + partida.turno);
-            Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
-            if (partida.xeque)
+            if (!partida.terminada) // Aula 231: Melhoramento da função do xeque mate
             {
-                Console.WriteLine("XEQUE!");
+                Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);
+                if (partida.xeque)
+                {
+                    Console.WriteLine("XEQUE!");
+                }
+            }
+            else
+            {
+                Console.WriteLine();
+                Console.WriteLine("XEQUE MATE!");
+                Console.WriteLine();
+                Console.WriteLine("Partida ganha pelo jogador das peças " + partida.jogadorAtual + "! PARABÉNS!");
             }
         }
 

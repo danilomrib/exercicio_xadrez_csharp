@@ -10,7 +10,7 @@ namespace xadrez_console.xadrez
         public bool terminada { get; private set; }
         private HashSet<Peca> pecas; //Aula 226: Inclusão da coleção
         private HashSet<Peca> capturadas; //Aula 226: Inclusão da coleção
-        public  bool  xeque { get; private set; }
+        public bool xeque { get; private set; }
 
         public PartidaDeXadrez()
         {
@@ -70,9 +70,17 @@ namespace xadrez_console.xadrez
                 xeque = false;
             }
 
+            if (testeXequeMate(adversaria(jogadorAtual))) // Aula 230: testa se a jogada realizada deixa o jogador adiversário em xeque mate
+                {
+                terminada = true; //aqui, caso sim, encerra a partida
+            }
+            else
+            {
 
-            turno++;
-            mudaJogador();
+
+                turno++;
+                mudaJogador();
+            }
         }
 
         public void validarPosicaodeOrigem(Posicao pos) // Aula 224: Inclusão das mensagens de exceção para a validação da origem.
@@ -142,7 +150,7 @@ namespace xadrez_console.xadrez
             return aux;
         }
 
-        public bool estaEmXeque (Cor cor) // Método que avalia se o rei está em xeque
+        public bool estaEmXeque(Cor cor) // Método que avalia se o rei está em xeque
         {
             Peca R = rei(cor); // define que a regra vale apenas para o rei
 
@@ -154,12 +162,44 @@ namespace xadrez_console.xadrez
             foreach (Peca x in pecasEmJogo(adversaria(cor))) //Progura todos os movimentos de cada peça em comparação ao rei
             {
                 bool[,] mat = x.movimentosPossiveis();
-                if (mat[R.Posicao.Linha, R.Posicao.Coluna]){
+                if (mat[R.Posicao.Linha, R.Posicao.Coluna])
+                {
                     return true;
                 }
             }
 
             return false;
+        }
+
+        public bool testeXequeMate(Cor cor) // Aula 230: implementando o xequemate
+        {
+            if (!estaEmXeque(cor)) // apenas validando se a peça realmente está em xeque
+            {
+                return false;
+            }
+            foreach (Peca x in pecasEmJogo(cor)) // vai passar uma lista em cada peça validando possiveis jogadas
+            {
+                bool[,] mat = x.movimentosPossiveis();
+                for (int i = 0; i < tab.linhas; i++)
+                {
+                    for (int j = 0; j < tab.colunas; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Posicao origem = x.Posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = executaMovimento(x.Posicao, destino);
+                            bool testaXeque = estaEmXeque(cor);
+                            desfazMovimento(origem, destino, pecaCapturada); // vai testar se o movimento possivel retira o rei do xeque
+                            if (!testaXeque) // neste teste, caso retire o xeque e permite a jogada
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true; // caso xeque seja real, ele retorna true para confirmar a partida em xeque mate.
         }
 
         public void colocarNovaPeca(char coluna, int linha, Peca peca) //Aula 226: inclusão de método novo para inclusão de peças

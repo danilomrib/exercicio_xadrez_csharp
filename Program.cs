@@ -19,12 +19,7 @@ namespace xadrez_console
                     {
 
                         Console.Clear();
-
-                        Tela.imprimirPartida(partida); // Aula 227: tratamento da tela para inclusão da coleção das peças.
-                      /*  Tela.imprimirTabuleiro(partida.tab);
-                        Console.WriteLine();
-                        Console.WriteLine("Turno: " + partida.turno);
-                        Console.WriteLine("Aguardando jogada: " + partida.jogadorAtual);*/
+                        Tela.imprimirPartida(partida);
 
                         Console.WriteLine();
                         Console.Write("Origem: ");
@@ -33,10 +28,12 @@ namespace xadrez_console
 
                         bool[,] posicoesPossiveis = partida.tab.peca(origem).movimentosPossiveis(); // vai guardar nesta matriz a lista de movimentos possíveis para a peça
 
-                        Console.Clear();
+                        Console.WriteLine();
                         Tela.imprimirTabuleiro(partida.tab, posicoesPossiveis); // vai imprimir na tela um diferencial com os movimentos possiveis para a peça
 
 
+                        Console.Clear();
+                        Tela.imprimirPartida(partida);
                         Console.WriteLine();
                         Console.Write("Destino: ");
                         Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
@@ -52,7 +49,8 @@ namespace xadrez_console
                     }
 
                 }
-
+                Console.Clear(); 
+                Tela.imprimirPartida(partida); // Aula 231: quando encerrar a partida, imprime o texto final.
             }
             catch (TabuleiroException e)
             {
