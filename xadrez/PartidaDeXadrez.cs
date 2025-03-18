@@ -148,10 +148,28 @@ namespace xadrez_console.xadrez
         {
             Peca pecaCapturada = executaMovimento(origem, destino);
 
+            
+
             if (estaEmXeque(jogadorAtual)) // Aula 228: função includa para validar se está em xeque
             {
                 desfazMovimento(origem, destino, pecaCapturada);
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
+            }
+
+            Peca p = tab.peca(destino);
+
+            // Aula 242: Jogada especial Em promoção
+
+            if (p is Peao)
+            {
+                if ((p.Cor == Cor.Branca && destino.Linha == 0) || (p.Cor == Cor.Preta && destino.Linha == 7)) // vai validar se está na ultima linha das respectivas cores
+                {
+                    p = tab.retirarPeca(destino); // retira o peao
+                    pecas.Remove(p);
+                    Peca dama = new Dama(tab, p.Cor); // cria uma dama
+                    tab.colocarPeca(dama, destino); // coloca a dama no destino
+                    pecas.Add(dama); // adiciona a dama extra nas peças
+                }
             }
 
             if (estaEmXeque(adversaria(jogadorAtual))) // Aula 228: Valida se quem está xeque é o adversario
@@ -175,7 +193,7 @@ namespace xadrez_console.xadrez
                 mudaJogador();
             }
 
-            Peca p = tab.peca(destino);
+            
 
             // Aula 238: Jogada En Passant 
 
